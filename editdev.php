@@ -256,14 +256,14 @@ $(function()
 
 if ($host_data)
 {
-  echo "<table id='rounded-corner' summary='HostSummary' align='center'>";
+  echo "<table class='acuity' summary='HostSummary' align='center'>";
   echo create_host_header();
   echo get_host_summary($host_data);
   echo "</table>";
   if ($host_alive)
   {
     echo "<form name='control' action='editdev.php?id=".$id."&dev=".$dev."&type=".$type."' method='post'>";
-    echo "<table id='rounded-corner' summary='DevsSummary' align='center'>";
+    echo "<table class='acuity' summary='DevsSummary' align='center'>";
     echo create_devs_header();
     echo process_dev_disp($gpu_data_array, $privileged);
 
@@ -292,7 +292,7 @@ if ($host_data)
   {
 ?>
 <form name='apply' action='editdev.php?id=<?=$id?>&dev=<?=$dev?>&type=<?=$type?>' method='post'>
-<table id='rounded-corner' summary='DevsControl' align='center'>
+<table class='acuity' summary='DevsControl' align='center'>
 <thead>
     <tr>
       <th width='20' scope='col' class='rounded-q1'>Set</th>

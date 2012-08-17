@@ -42,11 +42,11 @@ ddsmoothmenu.init({
     <div id="templatemo_main">
     	<div class="col_fw">
         	<div class="templatemo_megacontent">
-            	<h2>Hosts</h2>
+            	<h2>Contact/Donate</h2>
 				 
                 <div class="cleaner h20"></div>
 
-<table id="rounded-corner" summary="Hostsummary">
+<table class="acuity" summary="Hostsummary">
     <thead>
     	<tr>
 			<th>Contact</th>
@@ -56,8 +56,18 @@ ddsmoothmenu.init({
             </td>
         </tr>
     	<tr>
-			<th>Donations</th></tr><tr>
-			<td>Anubis has taken many hours and hard work to get to the stage it's in. If you like Anubis, any donation will be appreciated: 1Fxpijq1NN52LzSzD2WtGbT3ZTWq366ejj </a></td>
+	<th>Donations</th></tr><tr>
+	  <td>
+<p>Anubis has taken many hours and hard work to get to the stage it's in. If
+you like Anubis, any donation will be appreciated:
+<span style="color: white">1Fxpijq1NN52LzSzD2WtGbT3ZTWq366ejj</span></p>
+
+<p>If you like this theming (dark/black), it was done with a forked copy of the
+original software by <a href="http://github.com/hank">hank@github</a>. Maybe
+you could send a small percentage of what you sent to p_shep to the following
+address: <span style="color:
+white">1ErikgLXAmxuTk76tdCrRW3iLnX1GS8mFd</span></p>
+          </td>
         </tr>
     	<tr>
 			<th>Thanks</th></tr>

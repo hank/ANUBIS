@@ -202,7 +202,7 @@ ddsmoothmenu.init({
 <?
 if ($host_data)
 {  
-  echo "<table id='rounded-corner' summary='HostSummary' align='center'>";
+  echo "<table class='acuity' summary='HostSummary' align='center'>";
   echo create_host_header();
   echo get_host_summary($host_data);
   echo "</table>";
@@ -210,7 +210,7 @@ if ($host_data)
   if ($host_alive)
   {
     echo "<form name=pool action='edithost.php?id=".$id."' method='post'>";
-    echo "<table id='rounded-corner' summary='DevsSummary' align='center'>";
+    echo "<table class='acuity' summary='DevsSummary' align='center'>";
     echo create_devs_header();
     echo process_devs_disp($host_data, $privileged);
 
@@ -233,7 +233,7 @@ if ($host_data)
     }
     echo "</table>";
 
-    echo "<table id='rounded-corner' summary='PoolSummary' align='center'>";
+    echo "<table class='acuity' summary='PoolSummary' align='center'>";
     echo create_pool_header();
     echo process_pools_disp($host_data, $privileged);
         
@@ -281,7 +281,7 @@ if ($host_data)
     if ((version_compare($API_version, 1.7, '>=')) && $privileged)
     {
 ?>
-      <table id='rounded-corner' summary='cgminerreset' align='center'>
+      <table class='acuity' summary='cgminerreset' align='center'>
         <tr>
       	  <th colspan="2"  scope="col" class="rounded-company">
       	    To restart or quit CGminer, click the checkbox, then press the button.

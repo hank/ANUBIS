@@ -66,21 +66,21 @@ ddsmoothmenu.init({
 <?
 if ($host_data && $host_alive)
 {
-  echo "<table id='rounded-corner' summary='HostInfo' width='100'>";
+  echo "<table class='acuity' summary='HostInfo' width='100'>";
   echo process_host_info($host_data);
   echo "</table>";
 
-  echo "<table id='rounded-corner' summary='HostNotify' align='center'>";
+  echo "<table class='acuity' summary='HostNotify' align='center'>";
   echo create_notify_header();
   echo process_notify_table($host_data);
   echo "</table>";
 
-  echo "<table id='rounded-corner' summary='HostDevDetails' align='center'>";
+  echo "<table class='acuity' summary='HostDevDetails' align='center'>";
   echo create_devdetails_header();
   echo process_devdetails_table($host_data);
   echo "</table>";
 
-  echo "<table id='rounded-corner' summary='HostStat' align='center'>";
+  echo "<table class='acuity' summary='HostStat' align='center'>";
   echo create_stats_header();
   echo "<tr><td><table border='0' width='100%'>";
     echo process_stats_table($host_data);

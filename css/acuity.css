@@ -17,15 +17,25 @@ table.acuity caption {
 table.acuity td, th {
   border: none;
   padding: .8em;
-  color: #6E6E6E;
+  color: #aaa;
   }
 
 table.acuity .red {
-  background-color: #400;
+  background-image: url(table-acuity/bg_acuity_red.gif);
+  color: #ccc;
+  border: 1px solid #222;
 }
 
 table.acuity .yellow {
-  background-color: #440;
+  background-image: url(table-acuity/bg_acuity_yellow.gif);
+  color: #ccc;
+  border: 1px solid #222;
+}
+
+table.acuity .green {
+  background-image: url(table-acuity/bg_acuity_green.gif);
+  color: #ccc;
+  border: 1px solid #222;
 }
 
 table.acuity thead th, tfoot th {

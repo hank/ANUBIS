@@ -480,9 +480,17 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
       $avgmhpercol = set_color_low($avgmhper, $config->yellowavgmhper, $config->maxavgmhper);
     }
 
-    $tempcol = set_color_high($max_temp, $config->yellowtemp, $config->maxtemp);             // Temperature
-    $thisstatuscol = ($thisstatus == "S") ? "class=green" : "class=yellow";                  // host status
-    $thisdevcol = ($activedevs == $devs) ? "class=green" : "class=red";                      // active devs
+    // Temperature
+    // Set red on zero value
+    if($max_temp == 0) $max_temp = $config->maxtemp;
+    if($config->yellowtemp == 0 and $config->maxtemp == 0) 
+	$tempcol = "class=green";
+    else 
+	$tempcol = set_color_high($max_temp, $config->yellowtemp, $config->maxtemp);
+             // host status
+    $thisstatuscol = ($thisstatus == "S") ? "class=green" : "class=yellow";     
+             // active devs
+    $thisdevcol = ($activedevs == $devs) ? "class=green" : "class=red";         
 
 	$row = "
       <td $thisdevcol>$activedevs/$devs</td>
@@ -622,7 +630,13 @@ function process_dev_disp($gpu_data_array, $edit=false)
   /* set colors */
   $encol = ($gpu_data_array['Enabled'] == "Y") ? "class=green" : "class=red";                      // Enabled
   $alcol = ($gpu_data_array['Status'] == "Alive") ? "class=green" : "class=red";                   // Alive
-  $tmpcol = set_color_high($gpu_data_array['Temperature'], $config->yellowtemp, $config->maxtemp); // Temperature
+  // Temperature
+  // Set red on zero value
+  if($max_temp == 0) $max_temp = $config->maxtemp;
+  if($config->yellowtemp == 0 and $config->maxtemp == 0) 
+	$tempcol = "class=green";
+  else 
+  	$tmpcol = set_color_high($gpu_data_array['Temperature'], $config->yellowtemp, $config->maxtemp);
   // Fans
   if($config->yellowfan == 0 and $config->maxfan == 0) $fancol = "class=green";
   else $fancol = set_color_high($gpu_data_array['Fan Percent'], $config->yellowfan, $config->maxfan);

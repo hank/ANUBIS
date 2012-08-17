@@ -89,17 +89,17 @@ if (isset($id))
   {
     echo "<b>Host has been added !</b><BR>";
 
-    echo "<table id='rounded-corner' summary='HostSummary' align='center'>";
+    echo "<table class='acuity' summary='HostSummary' align='center'>";
     echo create_host_header();
     echo get_host_status($host_data);
     echo "</table>";
   
-    echo "<table id='rounded-corner' summary='PoolSummary' align='center'>";
+    echo "<table class='acuity' summary='PoolSummary' align='center'>";
     echo create_pool_header();
     echo process_pools_disp($host_data);
     echo "</table>";
   
-    echo "<table id='rounded-corner' summary='DevsSummary' align='center'>";
+    echo "<table class='acuity' summary='DevsSummary' align='center'>";
     echo create_devs_header();
     echo process_devs_disp($host_data);
     echo "</table>";
