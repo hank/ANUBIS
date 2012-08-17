@@ -29,10 +29,11 @@ $config = get_config_data();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Anubis - a cgminer web frontend</title>
+<title>Anubis: hank</title>
 
 <link href="templatemo_style.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+<link rel="stylesheet" type="text/css" href="css/acuity.css" />
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -80,7 +81,7 @@ ddsmoothmenu.init({
 $result = $dbh->query("SELECT * FROM hosts ORDER BY name ASC");
 if ($result)
 {
-    echo "<table id='rounded-corner' summary='Hostsummary'>";
+    echo "<table summary='Hostsummary' class='acuity'>";
 
     echo create_host_header();
 	while ($host_data = $result->fetch(PDO::FETCH_ASSOC))
@@ -103,20 +104,13 @@ else
 <!--                 <a href="#" class="more float_r"></a> -->
             </div>
 
-            <div class="cleaner"></div>
 		</div>
 
-        <div class="cleaner"></div>
         </div>
     </div>
-    
-    <div class="cleaner"></div>
 
 <div id="templatemo_footer_wrapper">
-    <div id="templatemo_footer">
-        <? include("footer.inc.php"); ?>
-        <div class="cleaner"></div>
-    </div>
+   <? include("footer.inc.php"); ?>
 </div> 
   
 </body>

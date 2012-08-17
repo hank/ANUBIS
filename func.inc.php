@@ -623,7 +623,9 @@ function process_dev_disp($gpu_data_array, $edit=false)
   $encol = ($gpu_data_array['Enabled'] == "Y") ? "class=green" : "class=red";                      // Enabled
   $alcol = ($gpu_data_array['Status'] == "Alive") ? "class=green" : "class=red";                   // Alive
   $tmpcol = set_color_high($gpu_data_array['Temperature'], $config->yellowtemp, $config->maxtemp); // Temperature
-  $fancol = set_color_high($gpu_data_array['Fan Percent'], $config->yellowfan, $config->maxfan);   // Fans
+  // Fans
+  if($config->yellowfan == 0 and $config->maxfan == 0) $fancol = "class=green";
+  else $fancol = set_color_high($gpu_data_array['Fan Percent'], $config->yellowfan, $config->maxfan);
   
   /* format fan speeds */
   $fanspeed = ($gpu_data_array['Fan Speed'] == '-1') ? '---' : $gpu_data_array['Fan Speed'];
