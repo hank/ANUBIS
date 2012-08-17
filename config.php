@@ -6,6 +6,11 @@ $dbh = anubis_db_connect();
 if (isset($_POST['saveconf'])) {
 	$updstring = "";
 
+	if (isset($_POST['updatetime'])) {
+		$updatetime = $dbh->quote($_POST['updatetime']);
+		$updstring = $updstring . " updatetime = $updatetime, ";
+	}
+
 	if (isset($_POST['yellowtemp'])) {
 		$yellowtemp = $dbh->quote($_POST['yellowtemp']);
 		$updstring = $updstring . " yellowtemp = $yellowtemp, ";
@@ -175,6 +180,10 @@ echo "<b>Configuration updated !</b>";
         	<th scope="col" class="rounded-company">Yellow</th>
             <th scope="col" class="rounded-q1">Red</th>
 
+        </tr>
+        <tr>
+        <td class="blue">Hashrate Update Timer (seconds)</td>
+        <td><input type=text name="updatetime" value="<?=$config->updatetime?>"></td>
         </tr>
         <tr>
         <td class="blue">GPU Temperature</td>

@@ -20,6 +20,11 @@ table.acuity td, th {
   color: #aaa;
   }
 
+table.acuity .hostname {
+  font-size: 1.6em;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
 table.acuity .red {
   background-image: url(table-acuity/bg_acuity_red.gif);
   color: #ccc;

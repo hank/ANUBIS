@@ -2,6 +2,7 @@
 
 $tblstr = "
 CREATE TABLE IF NOT EXISTS `configuration` (
+  `updatetime` int(11) NOT NULL,
   `yellowtemp` int(11) NOT NULL,
   `yellowrejects` int(11) NOT NULL,
   `yellowdiscards` int(11) NOT NULL,
@@ -27,8 +28,8 @@ CREATE TABLE IF NOT EXISTS `configuration` (
 $crr = $dbh->query($tblstr);
 db_error();
 
-$instblstr = "INSERT INTO `configuration` (`yellowtemp`, `yellowrejects`, `yellowdiscards`, `yellowstales`, `yellowgetfails`, `yellowremfails`, `maxtemp`, `maxrejects`, `maxdiscards`, `maxstales`, `maxgetfails`, `maxremfails`, `email`, `yellowfan`, `maxfan`, `yellowgessper`, `maxgessper`, `yellowavgmhper`, `maxavgmhper`) VALUES
-(80, 1, 30, 7, 1, 1, 84, 2, 40, 10, 2, 2, 'change@me.com', 85, 90, 95, 90, 95, 90);";
+$instblstr = "INSERT INTO `configuration` (`updatetime`, `yellowtemp`, `yellowrejects`, `yellowdiscards`, `yellowstales`, `yellowgetfails`, `yellowremfails`, `maxtemp`, `maxrejects`, `maxdiscards`, `maxstales`, `maxgetfails`, `maxremfails`, `email`, `yellowfan`, `maxfan`, `yellowgessper`, `maxgessper`, `yellowavgmhper`, `maxavgmhper`) VALUES
+(5, 80, 1, 30, 7, 1, 1, 84, 2, 40, 10, 2, 2, 'change@me.com', 85, 90, 95, 90, 95, 90);";
 
 $cri = $dbh->exec($instblstr);
 db_error();

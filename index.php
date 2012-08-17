@@ -3,6 +3,7 @@ require("auth.inc.php");
 require("config.inc.php");
 require("func.inc.php");
 
+
 $dbh = anubis_db_connect();
 
 $result = $dbh->query($show_tables);
@@ -80,14 +81,13 @@ ddsmoothmenu.init({
 $result = $dbh->query("SELECT * FROM hosts ORDER BY name ASC");
 if ($result)
 {
-    echo "<table summary='Hostsummary' class='acuity'>";
-
+    echo "<table id=\"hostsummary\" summary=\"Hostsummary\" class=\"acuity\">";
     echo create_host_header();
-	while ($host_data = $result->fetch(PDO::FETCH_ASSOC))
-        echo get_host_summary($host_data);
+	while ($host_data = $result->fetch(PDO::FETCH_ASSOC)) {
+		echo get_host_summary($host_data);
+	}
     echo create_totals();
-
-	echo "</table>";
+    echo "</table>";
 }
 else 
 {
@@ -111,6 +111,15 @@ else
 <div id="templatemo_footer_wrapper">
    <? include("footer.inc.php"); ?>
 </div> 
+
+<script>
+$(function() {
+  setInterval(update, 1000 * <?= $config->updatetime ?>);
+});
+function update() {
+	$('#hostsummary').load('refresh_hosts.php');
+}
+</script>
   
 </body>
 </html>
