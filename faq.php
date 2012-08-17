@@ -4,8 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+<? require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -48,7 +47,7 @@ ddsmoothmenu.init({
 				 
                 <div class="cleaner h20"></div>
 
-<table id="rounded-corner" summary="Hostsummary">
+<table class="acuity" summary="Hostsummary">
     <thead>
     	<tr>
 			<th>Whats this ?</th></tr><tr>

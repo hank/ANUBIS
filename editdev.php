@@ -137,8 +137,8 @@ if($host_data = get_host_data($id))
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
-<link type="text/css" href="css/ui-lightness/jquery-ui.custom.css" rel="Stylesheet" />
+<? require('stylesheets.inc.php'); ?>
+
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/jquery-ui.custom.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />

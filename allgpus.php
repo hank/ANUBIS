@@ -12,8 +12,7 @@ $config = get_config_data();
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+<? require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -60,7 +59,7 @@ ddsmoothmenu.init({
 $result = $dbh->query("SELECT * FROM hosts");
 if ($result)
 {
-  echo "<table id='rounded-corner' summary='Hostsummary'>";
+  echo "<table class='acuity' summary='Hostsummary'>";
   echo create_host_header();
 
 	while ($host_data = $result->fetch(PDO::FETCH_ASSOC))
@@ -72,12 +71,12 @@ if ($result)
       {
         $privileged = get_privileged_status($host_data);
         echo "<tr><td colspan='14'>";
-          echo "<table id='rounded-corner' summary='PoolSummary' align='center'>";
+          echo "<table class='acuity' summary='PoolSummary' align='center'>";
           echo create_pool_header();
           echo process_pools_disp($host_data);
           echo "</table>";
         
-          echo "<table id='rounded-corner' summary='DevsSummary' align='center'>";
+          echo "<table class='acuity' summary='DevsSummary' align='center'>";
           echo create_devs_header();
           echo process_devs_disp($host_data);
           echo "</table>";

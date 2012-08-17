@@ -2,6 +2,8 @@
 Credit: http://www.templatemo.com
 */
 
+html { height: 100%; }
+
 body {
 	margin: 0;
 	padding: 0;
@@ -10,13 +12,14 @@ body {
 	font-size: 13px;
 	line-height: 1.5em; 
 	background: url(images/anubisbg.png) bottom left no-repeat fixed;
-	background-color: #222;
+	background-color: #111;
+	height: 100%;
 }
 
-a, a:link, a:visited { color: #000; font-weight: normal; text-decoration: none }
-a:hover { color: #EEE; text-decoration: underline; }
+a, a:link, a:visited { color: #eee; font-weight: normal; text-decoration: none }
+a:hover { color: #fff; text-decoration: underline; }
 
-a.more { display: block; width: 79px; height: 26px; line-height: 26px; color: #000; text-align: center; background: url(images/templatemo_more.png) no-repeat; font-weight: 700; text-decoration: none }
+a.more { display: block; width: 79px; height: 26px; line-height: 26px; color: #eee; text-align: center; background: url(images/templatemo_more.png) no-repeat; font-weight: 700; text-decoration: none }
 a.more:hover { background:url(images/templatemo_more_hover.png) }
 
 
@@ -59,6 +62,7 @@ h6 { font-size: 14px; margin: 0 0 5px; padding: 0; }
 	margin: 0 auto;
 	padding: 0 10px;
 	width: 1100px;
+	min-height: 100%;
 }
 
 #templatemo_header {
@@ -146,6 +150,8 @@ h6 { font-size: 14px; margin: 0 0 5px; padding: 0; }
 	clear: both;
 	width: 1160px;
 	padding: 60px 0 20px;
+	overflow: auto;
+	padding-bottom: 100px;
 }
 
 #templatemo_content {
@@ -301,6 +307,7 @@ h6 { font-size: 14px; margin: 0 0 5px; padding: 0; }
 .recent_post li a { display: block; font-weight: 700 }
 
 #templatemo_footer_wrapper {
+	position: relative;
 	margin-top: -100px;
 	height: 100px;
 	clear: both;

@@ -7,6 +7,7 @@ table.acuity {
 	background-repeat: repeat;
 	border-spacing: 1px;
 	width: 100%;
+	margin-bottom: 10px;
 }
 table.acuity caption {
   text-align: left;
@@ -18,12 +19,21 @@ table.acuity td, th {
   padding: .8em;
   color: #6E6E6E;
   }
+
+table.acuity .red {
+  background-color: #400;
+}
+
+table.acuity .yellow {
+  background-color: #440;
+}
+
 table.acuity thead th, tfoot th {
   font: bold 1em helvetica, verdana, arial, sans-serif;
   border: none;
   text-align: left;
   background: #000000;
-  color: #00FF0C;
+  color: #00bb0C;
   padding-top:4px;
   }
 table.acuity tbody td a {

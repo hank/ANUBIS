@@ -72,8 +72,7 @@ if (isset($_POST['delete']))
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<link href="templatemo_style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+<? require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -125,7 +124,7 @@ if ($grp_result)
 	{
         $group_id = $group_data['id'];
         echo "<form name=add action='accounts.php' method='post'>";
-        echo "<table id='rounded-corner' summary='GroupSummary'>";
+        echo "<table class='acuity' summary='GroupSummary'>";
         echo create_group_header($group_data);
         
         $acc_result = $dbh->query("SELECT * FROM accounts WHERE `group` = '".$group_id."' ORDER BY name ASC");
