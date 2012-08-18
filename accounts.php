@@ -1,4 +1,5 @@
 <?
+require("auth.inc.php");
 require("config.inc.php");
 require("acc.inc.php");
 
