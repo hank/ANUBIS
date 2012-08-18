@@ -202,7 +202,7 @@ ddsmoothmenu.init({
 <?
 if ($host_data)
 {  
-  echo "<table class='acuity' summary='HostSummary' align='center'>";
+  echo "<table id=\"hostsum\" class='acuity' summary='HostSummary' align='center'>";
   echo create_host_header();
   echo get_host_summary($host_data);
   echo "</table>";
@@ -210,7 +210,7 @@ if ($host_data)
   if ($host_alive)
   {
     echo "<form name=pool action='edithost.php?id=".$id."' method='post'>";
-    echo "<table class='acuity' summary='DevsSummary' align='center'>";
+    echo "<table id=\"devsum\" class='acuity' summary='DevsSummary' align='center'>";
     echo create_devs_header();
     echo process_devs_disp($host_data, $privileged);
 
@@ -354,6 +354,16 @@ else {
         <div class="cleaner"></div>
     </div>
 </div> 
+
+<script>
+$(function() {
+  setInterval(update, 1000 * <?= $config->updatetime ?>);
+});
+function update() {
+	$('#hostsum').load('edithost.php?id=<?=$id?> #hostsum');
+	$('#devsum').load('edithost.php?id=<?=$id?> #devsum');
+}
+</script>
   
 </body>
 </html>

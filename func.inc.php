@@ -307,7 +307,7 @@ function create_host_header()
     	<tr>
         	<th scope='col' class='rounded-company'>Address</th>
             <th scope='col' class='rounded-q1'>Devs</th>
-            <th scope='col' class='rounded-q1'>Temp max</th>
+            <th scope='col' class='rounded-q1'>Temp</th>
             <th scope='col' class='rounded-q1'>MH/s des</th>
             <th scope='col' class='rounded-q1'>Util</th>
             <th scope='col' class='rounded-q1'>MH/s 5s</th>
@@ -729,7 +729,7 @@ function process_dev_disp($gpu_data_array, $edit=false)
   <td>".$DEV_cell."</td>
   <td $encol>".$button."</td>
   <td $alcol>".$gpu_data_array['Status']."</td>
-  <td $tmpcol>".$gpu_data_array['Temperature']."</td>"
+  <td $tmpcol>".$gpu_data_array['Temperature']."&deg;C</td>"
   . $GPU_specific1 .
   "<td>".$gpu_data_array['MHS 5s']."</td>
   <td>".$gpu_data_array['MHS av']."</td>

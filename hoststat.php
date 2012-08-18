@@ -12,6 +12,8 @@ if (!$id || $id == 0)
 	die;
 }
 
+$config = get_config_data();
+
 if($host_data = get_host_data($id))
   $host_alive = get_host_status($host_data);
 
@@ -66,21 +68,21 @@ ddsmoothmenu.init({
 <?
 if ($host_data && $host_alive)
 {
-  echo "<table class='acuity' summary='HostInfo' width='100'>";
+  echo "<table id='hostinfo' class='acuity' summary='HostInfo' width='100'>";
   echo process_host_info($host_data);
   echo "</table>";
 
-  echo "<table class='acuity' summary='HostNotify' align='center'>";
+  echo "<table id='hostnotify' class='acuity' summary='HostNotify' align='center'>";
   echo create_notify_header();
   echo process_notify_table($host_data);
   echo "</table>";
 
-  echo "<table class='acuity' summary='HostDevDetails' align='center'>";
+  echo "<table id='hostdevdetails' class='acuity' summary='HostDevDetails' align='center'>";
   echo create_devdetails_header();
   echo process_devdetails_table($host_data);
   echo "</table>";
 
-  echo "<table class='acuity' summary='HostStat' align='center'>";
+  echo "<table id='hoststat' class='acuity' summary='HostStat' align='center'>";
   echo create_stats_header();
   echo "<tr><td><table border='0' width='100%'>";
     echo process_stats_table($host_data);
@@ -110,6 +112,18 @@ else {
         <div class="cleaner"></div>
     </div>
 </div> 
+
+<script>
+$(function() {
+  setInterval(update, 1000 * <?= $config->updatetime ?>);
+});
+function update() {
+	$('#hostinfo').load('hoststat.php?id=<?=$id?> #hostinfo');
+	$('#hostnotify').load('hoststat.php?id=<?=$id?> #hostnotify');
+	$('#hostdevdetails').load('hoststat.php?id=<?=$id?> #hostdevdetails');
+	$('#hoststat').load('hoststat.php?id=<?=$id?> #hoststat');
+}
+</script>
   
 </body>
 </html>
