@@ -494,7 +494,7 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
 
 	$row = "
       <td $thisdevcol>$activedevs/$devs</td>
-      <td $tempcol>$max_temp</td>
+      <td $tempcol>$max_temp&deg;C</td>
       <td>$desmhash</td>
       <td>$utility</td>
       <td $fivesmhashcol>$fivesmhash<BR>$fivesmhashper %</td>
