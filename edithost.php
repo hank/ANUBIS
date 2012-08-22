@@ -234,7 +234,7 @@ if ($host_data)
     }
     echo "</table>";
 
-    echo "<table class='acuity' summary='PoolSummary' align='center'>";
+    echo "<table class='acuity' id=\"poolsum\" summary='PoolSummary' align='center'>";
     echo create_pool_header();
     echo process_pools_disp($host_data, $privileged);
         
@@ -363,6 +363,7 @@ $(function() {
 function update() {
 	$('#hostsum').load('edithost.php?id=<?=$id?> #hostsum');
 	$('#devsum').load('edithost.php?id=<?=$id?> #devsum');
+	$('#poolsum').load('edithost.php?id=<?=$id?> #poolsum');
 }
 </script>
   
