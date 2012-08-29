@@ -12,7 +12,7 @@ in your PHP setup. Consult
 http://php.net/manual/en/book.pdo.php
 on how to do this.
 
-Edit config.inc.php with the details of your database.
+Copy config.php.inc.example to config.inc.php and edit with the details of your database.
 These are the variables:
 
 $dbdatabase - name of data base to connect to.
