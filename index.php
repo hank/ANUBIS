@@ -1,4 +1,4 @@
-<?
+<?php
 require("auth.inc.php");
 require("config.inc.php");
 require("func.inc.php");
@@ -66,7 +66,7 @@ ddsmoothmenu.init({
 
 <div id="templatemo_wrapper">
 
-<? include ('header.inc.php'); ?>
+<?php include ('header.inc.php'); ?>
     
     <div id="templatemo_main">
     	<div class="col_fw">
@@ -75,7 +75,7 @@ ddsmoothmenu.init({
 				 <a href="allgpus.php">Expand all Hosts</a>
                 <div class="cleaner h20"></div>
 
-<?
+<?php
 
 
 $result = $dbh->query("SELECT * FROM hosts ORDER BY name ASC");
@@ -109,7 +109,8 @@ else
     </div>
 
 <div id="templatemo_footer_wrapper">
-   <? include("footer.inc.php"); ?>
+        <?php include("footer.inc.php"); ?>
+        <div class="cleaner"></div>
 </div> 
 
 <script>
