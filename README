@@ -32,6 +32,11 @@ database connection routines. The following URL has a good tutorial on how to
 do this:
 http://www.phpro.org/tutorials/Introduction-to-PHP-PDO.html
 
+SECURITY:
+After the initial database schema is created, move the configtbl.sql.php aside,
+giving it a filename like configtbl.sql.php.dasdas.affe.  This way, no external
+users can add new entries to the database.
+
 AUTH:
 Make sure to rename auth.inc.php.example to auth.inc.php, and change the
 credentials inside to something you'll remember, eg.:

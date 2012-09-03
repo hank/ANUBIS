@@ -2,28 +2,32 @@
 table.acuity {
 	border-collapse: collapse;
 	border: none;
-	font: normal 1em helvetica, verdana, arial, sans-serif;
+	font-family: Tahoma, Geneva, sans-serif;
+	font-size: 1em;
 	background-image: url(table-acuity/bg_acuity.gif); 
 	background-repeat: repeat;
 	border-spacing: 1px;
 	width: 100%;
 	margin-bottom: 10px;
 }
+
 table.acuity caption {
   text-align: left;
   font: normal 1em helvetica, verdana, arial,  sans-serif;
   background: transparent;
-  }
+}
+
 table.acuity td, th {
   border: none;
   padding: .8em;
   color: #aaa;
-  }
-
-table.acuity .hostname {
-  font-size: 1.6em;
-  font-family: Helvetica, Arial, sans-serif;
 }
+
+table.acuity td.hostname {
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	font-size: 1.6em;
+}
+
 
 table.acuity .red {
   background-image: url(table-acuity/bg_acuity_red.gif);

@@ -1,0 +1,5 @@
+mysql> CREATE USER 'anubis-read-only'@'localhost' IDENTIFIED BY 'foobar';
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> GRANT SELECT ON anubis.* TO 'anubis-read-only'@'localhost';
+Query OK, 0 rows affected (0.06 sec)
