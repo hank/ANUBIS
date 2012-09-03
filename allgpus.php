@@ -60,7 +60,7 @@ ddsmoothmenu.init({
 $result = $dbh->query("SELECT * FROM hosts");
 if ($result)
 {
-  echo "<table class='acuity' summary='Hostsummary'>";
+  echo "<table id='hostsum' class='acuity' summary='Hostsummary'>";
   echo create_host_header();
 
 	while ($host_data = $result->fetch(PDO::FETCH_ASSOC))
@@ -72,12 +72,12 @@ if ($result)
       {
         $privileged = get_privileged_status($host_data);
         echo "<tr><td colspan='14'>";
-          echo "<table class='acuity' summary='PoolSummary' align='center'>";
+          echo "<table id='poolsum' class='acuity' summary='PoolSummary' align='center'>";
           echo create_pool_header();
           echo process_pools_disp($host_data);
           echo "</table>";
         
-          echo "<table class='acuity' summary='DevsSummary' align='center'>";
+          echo "<table id='devsum' class='acuity' summary='DevsSummary' align='center'>";
           echo create_devs_header();
           echo process_devs_disp($host_data);
           echo "</table>";
@@ -117,6 +117,17 @@ else
         <div class="cleaner"></div>
     </div>
 </div> 
+
+<script>
+$(function() {
+  setInterval(update, 1000 * <?= $config->updatetime ?>);
+});
+function update() {
+	$('#hostsum').load('allgpus.php?id=<?=$id?> #hostsum');
+	$('#devsum').load('allgpus.php?id=<?=$id?> #devsum');
+	$('#poolsum').load('allgpus.php?id=<?=$id?> #poolsum');
+}
+</script>
   
 </body>
 </html>
