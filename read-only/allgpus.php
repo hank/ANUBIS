@@ -70,11 +70,13 @@ if ($result)
       if ($host_alive)
       {
         $privileged = get_privileged_status($host_data);
+
+         // Removed pool display for now
         echo "<tr><td colspan='14'>";
-          echo "<table id='poolsum' class='acuity' summary='PoolSummary' align='center'>";
-          echo create_pool_header();
-          echo process_pools_disp($host_data);
-          echo "</table>";
+#          echo "<table id='poolsum' class='acuity' summary='PoolSummary' align='center'>";
+#          echo create_pool_header();
+#          echo process_pools_disp($host_data);
+#          echo "</table>";
         
           echo "<table id='devsum' class='acuity' summary='DevsSummary' align='center'>";
           echo create_devs_header();
@@ -122,7 +124,7 @@ $(function() {
 function update() {
 	$('#hostsum').load('allgpus.php?id=<?=$id?> #hostsum');
 	$('#devsum').load('allgpus.php?id=<?=$id?> #devsum');
-	$('#poolsum').load('allgpus.php?id=<?=$id?> #poolsum');
+/* 	$('#poolsum').load('allgpus.php?id=<?=$id?> #poolsum'); */
 }
 </script>
   
