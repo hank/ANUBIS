@@ -1,7 +1,6 @@
 <?php
 error_reporting('E_ALL');
 ini_set('display_errors','On'); 
-
 // Globals
 $host_data = null;
 $host_alive = false;
@@ -21,6 +20,8 @@ $data_totals = array('hosts'=>0,
                      'stales'=>0, 
                      'getfails'=>0,
                      'remfails'=>0);
+// Number of significant digits
+$sigdigs = 2;
 
 $API_version = 0;
 $CGM_version = "0.0.0";
@@ -263,7 +264,7 @@ function set_color_low($value, $yellow_limit, $red_limit)
 /*
 function set_share_colour($shares_array)
 {
-  global $config;
+  global $config, $sigdigs;
   $share_types = array('Accepted', 'Rejected', 'Discarded', 'Stale', 'Get Failures', 'Remote Failures');
   $shares = array('absolute' => $share_types, 'percentage' => $share_types, 'color' => $share_types);
 
@@ -276,11 +277,11 @@ function set_share_colour($shares_array)
 
   if (isset($accepted) && $accepted !== 0)
   {
-    $rejects = round(100 / $accepted * $rejected, 2);
-    $discards = round(100 / $accepted * $discarded,2);
-    $stales = round(100 / $accepted * $stale, 2);
-    $getfails = round(100 / $accepted * $getfail, 2);
-    $remfails = round(100 / $accepted * $remfail, 2);
+    $rejects = number_format(100 / $accepted * $rejected, $sigdigs, ".", "");
+    $discards = number_format(100 / $accepted * $discarded,$sigdigs, ".", "");
+    $stales = number_format(100 / $accepted * $stale, $sigdigs, ".", "");
+    $getfails = number_format(100 / $accepted * $getfail, $sigdigs, ".", "");
+    $remfails = number_format(100 / $accepted * $remfail, $sigdigs, ".", "");
   }
 
   $rejectscol = set_color_high($rejects, $config->yellowrejects, $config->maxrejects);      // Rejects
@@ -431,7 +432,7 @@ function process_host_info($host_data)
 function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
 {
   global $data_totals;
-  global $config;
+  global $config, $sigdigs;
 
   $devs = $activedevs = $max_temp = $fivesmhash = $fivesmhashper = $avgmhper = 0;
   $fivesmhashcol = $avgmhpercol = $rejectscol = $discardscol = $stalescol = $getfailscol = $remfailscol = "";
@@ -455,12 +456,12 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
     
     if (isset($accepted) && $accepted !== 0)
     {
-      $efficency = round(100 / $getworks * $accepted, 1) . " %";
-      $rejects = round(100 / ($accepted + $rejected) * $rejected, 1) . " %";
-      $discards = round(100 / $getworks * $discarded, 1) . " %";
-      $stales = round(100 / $accepted * $stale, 1) . " %";
-      $getfails = round(100 / $accepted * $getfail, 1) . " %";
-      $remfails = round(100 / $accepted * $remfail, 1) . " %";
+      $efficency = number_format(100 / $getworks * $accepted, $sigdigs, ".", "") . " %";
+      $rejects = number_format(100 / ($accepted + $rejected) * $rejected, $sigdigs, ".", "") . " %";
+      $discards = number_format(100 / $getworks * $discarded, $sigdigs, ".", "") . " %";
+      $stales = number_format(100 / $accepted * $stale, $sigdigs, ".", "") . " %";
+      $getfails = number_format(100 / $accepted * $getfail, $sigdigs, ".", "") . " %";
+      $remfails = number_format(100 / $accepted * $remfail, $sigdigs, ".", "") . " %";
       
       $rejectscol = set_color_high($rejects, $config->yellowrejects, $config->maxrejects);     // Rejects
       $discardscol = set_color_high($discards, $config->yellowdiscards, $config->maxdiscards); // Discards
@@ -472,11 +473,11 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
     if ($desmhash > 0)
     {
       // Desired Mhash vs. 5s mhash
-      $fivesmhashper = round(100 / $desmhash * $fivesmhash, 1);
+      $fivesmhashper = number_format(100 / $desmhash * $fivesmhash, $sigdigs, ".", "");
       $fivesmhashcol = set_color_low($fivesmhashper, $config->yellowgessper, $config->maxgessper);
 
       // Desired Mhash vs. avg mhash
-      $avgmhper = round(100 / $desmhash * $avgmhash, 1);
+      $avgmhper = number_format(100 / $desmhash * $avgmhash, $sigdigs, ".", "");
       $avgmhpercol = set_color_low($avgmhper, $config->yellowavgmhper, $config->maxavgmhper);
     }
 
@@ -616,15 +617,15 @@ function process_dev_disp($gpu_data_array, $edit=false)
 {
   global $config;
   global $id;
-  global $privileged;
+  global $privileged, $sigdigs;
 
   $accepted =   $gpu_data_array['Accepted'];
   $rejected =   $gpu_data_array['Rejected'];
 
   if (isset($accepted) && $accepted !== 0)
   {
-    $efficency = round(100 / ($accepted + $rejected) * $accepted, 1) . " %";
-    $rejects = round(100 / ($accepted + $rejected) * $rejected, 1) . " %";
+    $efficency = number_format(100 / ($accepted + $rejected) * $accepted, $sigdigs, ".", "") . " %";
+    $rejects = number_format(100 / ($accepted + $rejected) * $rejected, $sigdigs, ".", "") . " %";
   }
 
   /* set colors */
@@ -838,7 +839,7 @@ function create_pool_header()
 *****************************************************************************/
 function process_pool_disp($pool_data_array, $edit=false)
 {
-  global $config;
+  global $config, $sigdigs;
   global $API_version;
   global $pools_in_use;
 
@@ -856,12 +857,12 @@ function process_pool_disp($pool_data_array, $edit=false)
   /* set shares colours */
   if (isset($accepted) && $accepted !== 0)
   {
-    $efficency = round(100 / $getworks * $accepted, 1) . " %";
-    $rejects = round(100 / ($accepted + $rejected) * $rejected, 1) . " %";
-    $discards = round(100 / $getworks * $discarded, 1) . " %";
-    $stales = round(100 / $accepted * $stale, 1) . " %";
-    $getfails = round(100 / $accepted * $getfail, 1) . " %";
-    $remfails = round(100 / $accepted * $remfail, 1) . " %";
+    $efficency = number_format(100 / $getworks * $accepted, $sigdigs, ".", "") . " %";
+    $rejects = number_format(100 / ($accepted + $rejected) * $rejected, $sigdigs, ".", "") . " %";
+    $discards = number_format(100 / $getworks * $discarded, $sigdigs, ".", "") . " %";
+    $stales = number_format(100 / $accepted * $stale, $sigdigs, ".", "") . " %";
+    $getfails = number_format(100 / $accepted * $getfail, $sigdigs, ".", "") . " %";
+    $remfails = number_format(100 / $accepted * $remfail, $sigdigs, ".", "") . " %";
 
     $rejectscol = set_color_high($rejects, $config->yellowrejects, $config->maxrejects);      // Rejects
     $discardscol = set_color_high($discards, $config->yellowdiscards, $config->maxdiscards);  // Discards
@@ -953,13 +954,13 @@ function process_pools_disp($host_data, $edit=false)
 *****************************************************************************/
 function create_totals()
 {
-    global $data_totals;
+    global $data_totals, $sigdigs;
 
-    $sumrejects = round($data_totals['rejects'] / $data_totals['hosts'],1);
-    $sumdiscards = round($data_totals['discards'] / $data_totals['hosts'],1);
-    $sumstales = round($data_totals['stales'] / $data_totals['hosts'],1);
-    $sumgetfails = round($data_totals['getfails'] / $data_totals['hosts'],1);
-    $sumremfails = round($data_totals['remfails'] / $data_totals['hosts'],1);
+    $sumrejects = number_format($data_totals['rejects'] / $data_totals['hosts'],$sigdigs, ".", "");
+    $sumdiscards = number_format($data_totals['discards'] / $data_totals['hosts'],$sigdigs, ".", "");
+    $sumstales = number_format($data_totals['stales'] / $data_totals['hosts'],$sigdigs, ".", "");
+    $sumgetfails = number_format($data_totals['getfails'] / $data_totals['hosts'],$sigdigs, ".", "");
+    $sumremfails = number_format($data_totals['remfails'] / $data_totals['hosts'],$sigdigs, ".", "");
 
     $totals =
     "<thead>
