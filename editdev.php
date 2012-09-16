@@ -292,17 +292,17 @@ if ($host_data)
   if ($privileged && ($type == 'GPU'))
   {
 ?>
-<<<<<<< HEAD
-<form name='apply' action='editdev.php?id=<?=$id?>&dev=<?=$dev?>&type=<?=$type?>' method='post'>
-<table class='acuity' summary='DevsControl' align='center'>
-=======
 <form name='apply' action='editdev.php?id=<?php echo $id?>&dev=<?php echo $dev?>&type=<?php echo $type?>' method='post'>
-<table id='rounded-corner' summary='DevsControl' align='center'>
->>>>>>> 13f6a00016b1377babd8e0f36d37d08430408ee0
+<table class="acuity" summary='DevsControl' align='center'>
 <thead>
     <tr>
-      <th width='20' scope='col' class='rounded-q1'>Set</th>
       <th colspan='3' scope='col' class='rounded-q1'> Edit settings below for <?php echo $type?> <?php echo $dev?> on <?php echo $host_data['name']?></th>
+    </tr>
+    <tr>
+    	<th width='20' scope='col' class='rounded-q1'>Set</th>
+    	<th scope='col' class='rounded-q1'>Min</th>
+    	<th scope='col' class='rounded-q1'>Setting</th>
+    	<th scope='col' class='rounded-q1'>Max</th>
     </tr>
 </thead>
 <tr>
