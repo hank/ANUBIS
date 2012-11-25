@@ -1,5 +1,6 @@
 <?php
 $pages = array("Home" => "index.php",
+             "Read-Only" => "read-only/index.php",
              "Accounts" => "accounts.php",
              "Configuration" => "config.php",
              "FAQ" => "faq.php",

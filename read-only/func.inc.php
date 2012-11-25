@@ -444,7 +444,7 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
     {
       $efficency = round(100 / $getworks * $accepted, 1) . " %";
       $rejects = round(100 / ($accepted + $rejected) * $rejected, 1) . " %";
-      $discards = round(100 / $getworks * $discarded, 1) . " %";
+      $discards = round(100 / $accepted * $discarded, 1) . " %";
       $stales = round(100 / $accepted * $stale, 1) . " %";
       $getfails = round(100 / $accepted * $getfail, 1) . " %";
       $remfails = round(100 / $accepted * $remfail, 1) . " %";

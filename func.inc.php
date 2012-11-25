@@ -458,7 +458,7 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
     {
       $efficency = number_format(100 / $getworks * $accepted, $sigdigs, ".", "") . " %";
       $rejects = number_format(100 / ($accepted + $rejected) * $rejected, $sigdigs, ".", "") . " %";
-      $discards = number_format(100 / $getworks * $discarded, $sigdigs, ".", "") . " %";
+      $discards = number_format(100 / $accepted * $discarded, $sigdigs, ".", "") . " %";
       $stales = number_format(100 / $accepted * $stale, $sigdigs, ".", "") . " %";
       $getfails = number_format(100 / $accepted * $getfail, $sigdigs, ".", "") . " %";
       $remfails = number_format(100 / $accepted * $remfail, $sigdigs, ".", "") . " %";
