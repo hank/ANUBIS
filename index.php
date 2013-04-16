@@ -115,7 +115,7 @@ else
 
 <script>
 $(function() {
-  setInterval(update, 1000 * <?php= $config->updatetime ?>);
+  setInterval(update, 1000 * <?php echo $config->updatetime ?>);
 });
 function update() {
 	$('#hostsummary').load('refresh_hosts.php');

@@ -119,12 +119,12 @@ else
 
 <script>
 $(function() {
-  setInterval(update, 1000 * <?php= $config->updatetime ?>);
+  setInterval(update, 1000 * <?php echo $config->updatetime ?>);
 });
 function update() {
-	$('#hostsum').load('allgpus.php?id=<?php=$id?> #hostsum');
-	$('#devsum').load('allgpus.php?id=<?php=$id?> #devsum');
-/* 	$('#poolsum').load('allgpus.php?id=<?php=$id?> #poolsum'); */
+	$('#hostsum').load('allgpus.php?id=<?php echo $id?> #hostsum');
+	$('#devsum').load('allgpus.php?id=<?php echo $id?> #devsum');
+/* 	$('#poolsum').load('allgpus.php?id=<?php echo $id?> #poolsum'); */
 }
 </script>
   

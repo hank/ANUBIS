@@ -183,7 +183,7 @@ echo "<b>Configuration updated !</b>";
         </tr>
         <tr>
         <td class="blue">Hashrate Update Timer (seconds)</td>
-        <td><input type=text name="updatetime" value="<?php=$config->updatetime?>"></td>
+        <td><input type=text name="updatetime" value="<?php echo $config->updatetime?>"></td>
         </tr>
         <tr>
         <td class="blue">GPU Temperature</td>

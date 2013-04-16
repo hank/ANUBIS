@@ -115,13 +115,13 @@ else {
 
 <script>
 $(function() {
-  setInterval(update, 1000 * <?php= $config->updatetime ?>);
+  setInterval(update, 1000 * <?php echo $config->updatetime ?>);
 });
 function update() {
-	$('#hostinfo').load('hoststat.php?id=<?php=$id?> #hostinfo');
-	$('#hostnotify').load('hoststat.php?id=<?php=$id?> #hostnotify');
-	$('#hostdevdetails').load('hoststat.php?id=<?php=$id?> #hostdevdetails');
-	$('#hoststat').load('hoststat.php?id=<?php=$id?> #hoststat');
+	$('#hostinfo').load('hoststat.php?id=<?php echo $id?> #hostinfo');
+	$('#hostnotify').load('hoststat.php?id=<?php echo $id?> #hostnotify');
+	$('#hostdevdetails').load('hoststat.php?id=<?php echo $id?> #hostdevdetails');
+	$('#hoststat').load('hoststat.php?id=<?php echo $id?> #hoststat');
 }
 </script>
   
