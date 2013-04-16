@@ -355,7 +355,9 @@ function process_host_devs($dev_data_array, &$activedevs, &$host5shash, &$maxtem
     # and such.
     $def5shash = preg_grep('/MHS \d/', array_keys($dev_data_array['DEVS'][$devs]));
     # We have to find the value for the key we just found
-if(is_array($def5shash) and is_array($dev_data_array['DEVS']) and is_array($dev_data_array['DEVS'][$devs])) {
+if(is_array(array_values($def5shash)) and 
+   is_array($dev_data_array['DEVS']) and 
+   is_array($dev_data_array['DEVS'][$devs])) {
     $dev5shash = $dev_data_array['DEVS'][$devs][array_values($def5shash)[0]];
     $host5shash += $dev5shash;
 } else {
@@ -750,10 +752,10 @@ function process_dev_disp($gpu_data_array, $edit=false)
   # and such.
   $def5shash = preg_grep('/MHS \d/', array_keys($gpu_data_array));
   # We have to find the value for the key we just found
-if(is_array($def5shash) and is_array($gpu_data_array)) {
-  $def5shash = $gpu_data_array[array_values($def5shash)[0]];
+  if(is_array($def5shash) and is_array($gpu_data_array)) {
+    $def5shash = $gpu_data_array[array_values($def5shash)[0]];
   } else {
-  $def5shash = 0
+    $def5shash = 0;
   }
   /* form row */
   $row = " <tr>
