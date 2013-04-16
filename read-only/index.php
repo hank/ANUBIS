@@ -31,7 +31,7 @@ $config = get_config_data();
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis: hank</title>
 
-<? require('stylesheets.inc.php'); ?>
+<?php require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -110,7 +110,7 @@ else
 
 <script>
 $(function() {
-  setInterval(update, 1000 * <?= $config->updatetime ?>);
+  setInterval(update, 1000 * <?php= $config->updatetime ?>);
 });
 function update() {
 	$('#hostsummary').load('refresh_hosts.php');

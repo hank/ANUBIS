@@ -102,7 +102,7 @@ if($host_data = get_host_data($id))
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis: Host Status</title>
 
-<? require('stylesheets.inc.php'); ?>
+<?php require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -236,13 +236,13 @@ else {
 
 <script>
 $(function() {
-  setInterval(update, 1000 * <?= $config->updatetime ?>);
+  setInterval(update, 1000 * <?php= $config->updatetime ?>);
 });
 function update() {
-	$('#hostinfo').load('hoststat.php?id=<?=$id?> #hostinfo');
-	$('#hostnotify').load('hoststat.php?id=<?=$id?> #hostnotify');
-	$('#hostdevdetails').load('hoststat.php?id=<?=$id?> #hostdevdetails');
-	$('#hoststat').load('hoststat.php?id=<?=$id?> #hoststat');
+	$('#hostinfo').load('hoststat.php?id=<?php=$id?> #hostinfo');
+	$('#hostnotify').load('hoststat.php?id=<?php=$id?> #hostnotify');
+	$('#hostdevdetails').load('hoststat.php?id=<?php=$id?> #hostdevdetails');
+	$('#hoststat').load('hoststat.php?id=<?php=$id?> #hoststat');
 }
 </script>
   

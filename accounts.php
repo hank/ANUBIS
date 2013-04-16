@@ -73,7 +73,7 @@ if (isset($_POST['delete']))
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<? require('stylesheets.inc.php'); ?>
+<?php require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">

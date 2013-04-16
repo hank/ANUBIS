@@ -25,7 +25,7 @@ if($host_data = get_host_data($id))
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<? require('stylesheets.inc.php'); ?>
+<?php require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 </head>
@@ -113,12 +113,12 @@ else {
 
 <script>
 $(function() {
-  setInterval(update, 1000 * <?= $config->updatetime ?>);
+  setInterval(update, 1000 * <?php= $config->updatetime ?>);
 });
 function update() {
-	$('#hostsum').load('./edithost.php?id=<?=$id?> #hostsum');
-	$('#devsum').load('./edithost.php?id=<?=$id?> #devsum');
-	$('#poolsum').load('./edithost.php?id=<?=$id?> #poolsum');
+	$('#hostsum').load('./edithost.php?id=<?php=$id?> #hostsum');
+	$('#devsum').load('./edithost.php?id=<?php=$id?> #devsum');
+	$('#poolsum').load('./edithost.php?id=<?php=$id?> #poolsum');
 }
 </script>
   

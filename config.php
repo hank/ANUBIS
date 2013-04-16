@@ -124,7 +124,7 @@ $config = $configq->fetch(PDO::FETCH_OBJ);
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<? require('stylesheets.inc.php'); ?>
+<?php require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -183,7 +183,7 @@ echo "<b>Configuration updated !</b>";
         </tr>
         <tr>
         <td class="blue">Hashrate Update Timer (seconds)</td>
-        <td><input type=text name="updatetime" value="<?=$config->updatetime?>"></td>
+        <td><input type=text name="updatetime" value="<?php=$config->updatetime?>"></td>
         </tr>
         <tr>
         <td class="blue">GPU Temperature</td>

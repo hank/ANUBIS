@@ -12,7 +12,7 @@ $config = get_config_data();
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Anubis - a cgminer web frontend</title>
 
-<? require('stylesheets.inc.php'); ?>
+<?php require('stylesheets.inc.php'); ?>
 
 <script type="text/javascript" src="scripts/jquery.min.js"></script>
 <script type="text/javascript" src="scripts/ddsmoothmenu.js">
@@ -119,12 +119,12 @@ else
 
 <script>
 $(function() {
-  setInterval(update, 1000 * <?= $config->updatetime ?>);
+  setInterval(update, 1000 * <?php= $config->updatetime ?>);
 });
 function update() {
-	$('#hostsum').load('allgpus.php?id=<?=$id?> #hostsum');
-	$('#devsum').load('allgpus.php?id=<?=$id?> #devsum');
-/* 	$('#poolsum').load('allgpus.php?id=<?=$id?> #poolsum'); */
+	$('#hostsum').load('allgpus.php?id=<?php=$id?> #hostsum');
+	$('#devsum').load('allgpus.php?id=<?php=$id?> #devsum');
+/* 	$('#poolsum').load('allgpus.php?id=<?php=$id?> #poolsum'); */
 }
 </script>
   
