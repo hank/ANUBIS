@@ -755,7 +755,8 @@ function process_dev_disp($gpu_data_array, $edit=false)
   $def5shash = preg_grep('/MHS \d/', array_keys($gpu_data_array));
   # We have to find the value for the key we just found
   if(is_array($def5shash) and is_array($gpu_data_array)) {
-    $def5shash = $gpu_data_array[array_values($def5shash)[0]];
+    $def5shash = $gpu_data_array[array_values($def5shash);
+    $def5shash = $def5shash[0];
   } else {
     $def5shash = 0;
   }
