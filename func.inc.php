@@ -358,7 +358,8 @@ function process_host_devs($dev_data_array, &$activedevs, &$host5shash, &$maxtem
 if(is_array(array_values($def5shash)) and 
    is_array($dev_data_array['DEVS']) and 
    is_array($dev_data_array['DEVS'][$devs])) {
-    $index = array_values($def5shash)[0];
+    $index = array_values($def5shash);
+    $index = $index[0];
     $dev5shash = $dev_data_array['DEVS'][$devs][$index];
     $host5shash += $dev5shash;
 } else {
