@@ -355,8 +355,12 @@ function process_host_devs($dev_data_array, &$activedevs, &$host5shash, &$maxtem
     # and such.
     $def5shash = preg_grep('/MHS \d/', array_keys($dev_data_array['DEVS'][$devs]));
     # We have to find the value for the key we just found
+if(is_array($def5shash)) {
     $dev5shash = $dev_data_array['DEVS'][$devs][array_values($def5shash)[0]];
     $host5shash += $dev5shash;
+} else {
+    $def5shash = 0;
+}
 
     if ($dev_data_array['DEVS'][$devs]['Status'] == "Alive" && $dev_data_array['DEVS'][$devs]['Enabled'] == "Y")
     {
