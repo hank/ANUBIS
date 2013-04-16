@@ -337,7 +337,7 @@ function create_host_header()
 /*  Outputs:     return - number of devices
 /*               activedevs - number of actively mining devices
 /*               host5shash - total host 5s hash rate
-/*               maxtemp - temperature of hotest device
+/*               maxtemp - temperature of hottest device
 *****************************************************************************/
 function process_host_devs($dev_data_array, &$activedevs, &$host5shash, &$maxtemp)
 {
