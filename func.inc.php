@@ -11,7 +11,8 @@ $data_totals = array('hosts'=>0,
                      'maxtemp'=>0, 
                      'desmhash'=>0,
                      'utility'=>0,
-                     'fivesmhash'=>0,
+                     'Wutility'=>0,
+					 'fivesmhash'=>0,
                      'avemhash'=>0,
                      'getworks'=>0,
                      'accepts'=>0, 
@@ -26,6 +27,7 @@ $sigdigs = 2;
 $API_version = 0;
 $CGM_version = "0.0.0";
 $pools_in_use = array();
+$debug_param_arr = array('Silent', 'Quiet', 'Verbose', 'Debug', 'RPCProto', 'PerDevice', 'WorkTime');
 
 /*****************************************************************************
 /*  Function:    get_config_data()
@@ -349,7 +351,11 @@ function process_host_devs($dev_data_array, &$activedevs, &$host5shash, &$maxtem
 
   while(isset($dev_data_array['DEVS'][$devs]))
   {
-    $dev5shash = $dev_data_array['DEVS'][$devs]['MHS 5s'];
+    # Handle -l parameters in cgminer that change this key from MHS 5s to 2s
+    # and such.
+    $def5shash = preg_grep('/MHS \d/', array_keys($dev_data_array['DEVS'][$devs]));
+    # We have to find the value for the key we just found
+    $dev5shash = $dev_data_array['DEVS'][$devs][array_values($def5shash)[0]];
     $host5shash += $dev5shash;
 
     if ($dev_data_array['DEVS'][$devs]['Status'] == "Alive" && $dev_data_array['DEVS'][$devs]['Enabled'] == "Y")
@@ -398,14 +404,17 @@ function process_host_info($host_data)
   
   $output = "
       <tr>
-        <th>CG version</th>
-        <th>API version</th>
+        <th>CG ver</th>
+        <th>API ver</th>
         <th>Up time</th>
         <th>Found H/W</th>
         <th>ADL</th>
         <th>Pools and Strategy</th>
         <th>Supported Devs</th>
         <th>OS</th>
+        <th>Scan Time</th>
+        <th>Queue</th>
+        <th>Expiry</th>
       </tr>
       <tr>
         <td>".$CGM_version."</td>
@@ -416,7 +425,14 @@ function process_host_info($host_data)
         <td>".$config_arr['CONFIG']['0']['Pool Count']." pools, using ".$config_arr['CONFIG']['0']['Strategy']."</td>
         <td>".$config_arr['CONFIG']['0']['Device Code']."</td>
         <td>".$config_arr['CONFIG']['0']['OS']."</td>
+        <td><input type='text' name='ScanTime_dro' value='".$config_arr['CONFIG']['0']['ScanTime']."' style='border:0;' size='3' /></td>
+        <td><input type='text' name='Queue_dro' value='".$config_arr['CONFIG']['0']['Queue']."' style='border:0;' size='3' /></td>
+        <td><input type='text' name='Expiry_dro' value='".$config_arr['CONFIG']['0']['Expiry']."' style='border:0;' size='3' /></td>
+      </tr>
+  	  <tr>
+  	    <th colspan='11'><button type='submit' name='config_submit' value='config_submit'>Submit</button></th>
       </tr>";
+  
 
   return $output;
 }
@@ -452,6 +468,7 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
     $getfail =    $summary_data_array['SUMMARY'][0]['Get Failures'];
     $remfail =    $summary_data_array['SUMMARY'][0]['Remote Failures'];
     $utility =    $summary_data_array['SUMMARY'][0]['Utility'];
+    $Wutility =    $summary_data_array['SUMMARY'][0]['Work Utility'];
     $getworks =    $summary_data_array['SUMMARY'][0]['Getworks'];
     
     if (isset($accepted) && $accepted !== 0)
@@ -497,7 +514,7 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
       <td $thisdevcol>$activedevs/$devs</td>
       <td $tempcol>$max_temp&deg;C</td>
       <td>$desmhash</td>
-      <td>$utility</td>
+      <td>$utility<br>($Wutility)</td>
       <td $fivesmhashcol>$fivesmhash<BR>$fivesmhashper %</td>
       <td $avgmhpercol>$avgmhash<BR>$avgmhper %</td>
       <td>$getworks</td>
@@ -515,6 +532,7 @@ function process_host_disp($desmhash, $summary_data_array, $dev_data_array)
     $data_totals['maxtemp'] = ($data_totals['maxtemp'] > $max_temp) ? $data_totals['maxtemp'] : $max_temp;
     $data_totals['desmhash'] += $desmhash;
     $data_totals['utility'] += $utility;
+    $data_totals['Wutility'] += $Wutility;
     $data_totals['fivesmhash'] += $fivesmhash;
     $data_totals['avemhash'] += $avgmhash;
     $data_totals['accepts'] += $accepted;
@@ -707,10 +725,7 @@ function process_dev_disp($gpu_data_array, $edit=false)
   }
   else if (isset($gpu_data_array['PGA']))
   {
-    /* temperature must be blanked when inactive (reports old value) */
-    if(($gpu_data_array['Enabled'] != "Y")) $gpu_data_array['Temperature'] = "---";    
-
-    if ($privileged && $edit)
+    if ($privileged)
     {
       if(($gpu_data_array['Enabled'] == "Y"))
         $button = "<button type='submit' name='stoppga' value='".$gpu_data_array['PGA'].$button_disable."'>Stop</button>";
@@ -724,7 +739,15 @@ function process_dev_disp($gpu_data_array, $edit=false)
   {
     $DEV_cell = $gpu_data_array['Name'] . $gpu_data_array['CPU'];
   }
+  
+  $diff_1_utill = round($gpu_data_array['Utility']*$gpu_data_array['Difficulty Accepted']/$accepted,2);
 
+  # Handle -l parameters in cgminer that change this key from MHS 5s to 2s
+  # and such.
+  $def5shash = preg_grep('/MHS \d/', array_keys($gpu_data_array));
+  # We have to find the value for the key we just found
+  $def5shash = $gpu_data_array[array_values($def5shash)[0]];
+  
   /* form row */
   $row = " <tr>
   <td>".$DEV_cell."</td>
@@ -732,12 +755,12 @@ function process_dev_disp($gpu_data_array, $edit=false)
   <td $alcol>".$gpu_data_array['Status']."</td>
   <td $tmpcol>".$gpu_data_array['Temperature']."&deg;C</td>"
   . $GPU_specific1 .
-  "<td>".$gpu_data_array['MHS 5s']."</td>
+  "<td>".$def5shash."</td>
   <td>".$gpu_data_array['MHS av']."</td>
   <td>".$accepted."<BR>".$efficency."</td>
   <td>".$rejected."<BR>".$rejects."</td>
   <td>".$gpu_data_array['Hardware Errors']."</td>
-  <td>".$gpu_data_array['Utility']."</td>"
+  <td>".$gpu_data_array['Utility']."<BR>(".$diff_1_utill.")</td>"
   . $GPU_specific2 .
   "</tr>";
 
@@ -819,12 +842,13 @@ function create_pool_header()
       <th scope='col' class='rounded-q1' colspan='2'>URL</th>
       <th scope='col' class='rounded-q1'>Gets</th>
       <th scope='col' class='rounded-q1'>Accepts</th>
+      <th scope='col' class='rounded-q1'>Diff</th>
       <th scope='col' class='rounded-q1'>Rejects</th>
       <th scope='col' class='rounded-q1'>Discards</th>
       <th scope='col' class='rounded-q1'>Stales</th>
       <th scope='col' class='rounded-q1'>Get Fails</th>
       <th scope='col' class='rounded-q1'>Rem fails</th>
-    </tr>
+      </tr>
     </thead>";
 
   return $header;
@@ -853,6 +877,7 @@ function process_pool_disp($pool_data_array, $edit=false)
   $stale =      $pool_data_array['Stale'];
   $getfail =    $pool_data_array['Get Failures'];
   $remfail =    $pool_data_array['Remote Failures'];
+  $difficulty = round($pool_data_array['Difficulty Accepted']/$pool_data_array['Accepted'],2);  
 
   /* set shares colours */
   if (isset($accepted) && $accepted !== 0)
@@ -910,6 +935,7 @@ function process_pool_disp($pool_data_array, $edit=false)
   <td $alcol>".$start_stop_button ."</td>
   <td>".$getworks."</td>
   <td>".$accepted."<BR>".$efficency."</td>
+  <td>$difficulty</td>
   <td $rejectscol>".$rejected."<BR>".$rejects."</td>
   <td $discardscol>".$discarded."<BR>".$discards."</td>
   <td $stalescol>".$stale."<BR>".$stales."</td>
@@ -969,7 +995,7 @@ function create_totals()
             <th scope='col' class='rounded-q1'>".$data_totals['devs']."/".$data_totals['activedevs']."</th>
             <th scope='col' class='rounded-q1'>".$data_totals['maxtemp']."</th>
             <th scope='col' class='rounded-q1'>".$data_totals['desmhash']."</th>
-            <th scope='col' class='rounded-q1'>".$data_totals['utility']."</th>
+            <th scope='col' class='rounded-q1'>".$data_totals['utility']."<BR>(".$data_totals['Wutility'].")</th>
             <th scope='col' class='rounded-q1'>".$data_totals['fivesmhash']."</th>
             <th scope='col' class='rounded-q1'>".$data_totals['avemhash']."</th>
             <th scope='col' class='rounded-q1'>".$data_totals['getworks']."</th>
@@ -999,7 +1025,7 @@ function create_notify_header()
       <th scope='col' colspan='2' class='rounded-q1'>Time</th>
       <th scope='col' rowspan='2' class='rounded-q1'>Reason</th>
       <th scope='col' colspan='3' class='rounded-q1'>Thread Counters</th>
-      <th scope='col' colspan='6' class='rounded-q1'>Device Counters</th>
+      <th scope='col' colspan='7' class='rounded-q1'>Device Counters</th>
     </tr>
     <tr>
       <th scope='col' class='rounded-q1'>Well</th>
@@ -1013,7 +1039,8 @@ function create_notify_header()
       <th scope='col' class='rounded-q1'>Over<br>Heat</th>
       <th scope='col' class='rounded-q1'>Thermal<br>Cutoff</th>
       <th scope='col' class='rounded-q1'>Comms<br>Error</th>
-    </tr>
+      <th scope='col' class='rounded-q1'>Throt</th>
+      </tr>
 </thead>";
 
   return $header;
@@ -1055,6 +1082,7 @@ function process_notify_disp($notify_data_array)
   <td>".$notify_data_array['*Dev Over Heat']."</td>
   <td>".$notify_data_array['*Dev Thermal Cutoff']."</td>
   <td>".$notify_data_array['*Dev Comms Error']."</td>
+  <td>".$notify_data_array['*Dev Throttle']."</td>
   </tr>";
 
   return $row;
@@ -1116,8 +1144,13 @@ function create_devdetails_header()
 *****************************************************************************/
 function process_devdetails_disp($dev_data_array)
 {
+  $button = '';
+  
+  if ($dev_data_array['Name'] == 'BFL')      
+  	$button = " &nbsp;<button type='submit' name='flashpga' value='".$dev_data_array['ID']."'>Blink</button>";
+  
   $row = "<tr>
-  <td>".$dev_data_array['Name'] . $dev_data_array['ID'] . "</td>
+  <td>".$dev_data_array['Name'] . $dev_data_array['ID'] . $button ."</td>
   <td>".$dev_data_array['Driver']."</td>
   <td>".$dev_data_array['Kernel']."</td>
   <td>".$dev_data_array['Model'] ."</td>
@@ -1224,6 +1257,41 @@ function process_stats_table($host_data)
     }
   }
   return $table;
+}
+
+/*****************************************************************************
+/*  Function:    process_debug_info()
+/*  Description: processes the debug level
+/*  Outputs:     return - the table of info
+*****************************************************************************/
+function process_debug_info($host_data)
+{
+    global $debug_param_arr;
+	
+  	$arr = array ('command'=>'debug','parameter'=>'');
+  	$debug_arr = send_request_to_host($arr, $host_data);
+
+  	$output = '<tr>';
+  	foreach ($debug_param_arr as $param)
+  		$output .= "<th> $param </th>"; 			
+  	$output .= '</tr></tr>';
+  	 
+  	foreach ($debug_param_arr as $param)
+  	{
+  		if ($debug_arr['DEBUG']['0'][$param])
+  			$checked = 'checked';
+  		else
+  			$checked = '';
+  				
+  		$output .= "<td><input type='checkbox' value=$param name=$param $checked ></td>";			
+  	}
+  	
+  	$output .= "<tr><th colspan=7>Select debug level and click submit, or click default to reset to defaults &nbsp; 
+  	            <button type='submit' name='debug_submit' value='debug'>Submit</button>
+  	            <button type='submit' name='default_submit' value='debug'>Default</button>
+  	            </th><tr>";
+  	 
+  return $output;
 }
 
 ?>
