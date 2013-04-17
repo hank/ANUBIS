@@ -624,6 +624,7 @@ $header =
             <th scope='col' class='rounded-q1'>Acc</th>
             <th scope='col' class='rounded-q1'>Rej</th>
             <th scope='col' class='rounded-q1'>H/W Err</th>
+            <th scope='col' class='rounded-q1'>Share Diff</th>
             <th scope='col' class='rounded-q1'>Util</th>
             <th scope='col' class='rounded-q1'>Intens</th>
         </tr>
@@ -773,6 +774,7 @@ function process_dev_disp($gpu_data_array, $edit=false)
   <td>".$accepted."<BR>".$efficency."</td>
   <td>".$rejected."<BR>".$rejects."</td>
   <td>".$gpu_data_array['Hardware Errors']."</td>
+  <td>".$gpu_data_array['Last Share Difficulty']."</td>
   <td>".$gpu_data_array['Utility']."<BR>(".$diff_1_utill.")</td>"
   . $GPU_specific2 .
   "</tr>";
